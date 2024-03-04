@@ -6,8 +6,6 @@ Federico Dutto – Thomas Pashollari 5°A Inf
 Realizzare una web app che permetta di ottenere i requisiti minimi hardware per un determinato
 software preso in input.
 
-***
-
 ## Materiale:
 
 * Linguaggi utilizzati

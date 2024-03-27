@@ -1,56 +1,58 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    crossorigin="anonymous" />
-  <link href="{{ asset('/css/admin.css') }}" rel="stylesheet" />
-  <title>@yield('title', 'Minumun PC specifications of a software')</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
+  <title>@yield('title', 'Online Store')</title>
 </head>
-
 <body>
-  <div class="row g-0">
-    <!-- sidebar -->
-    <div class="p-3 col fixed text-white bg-dark">
-      <a href=# class="text-white text-decoration-none">
-        <span class="fs-4"></span>
-      </a>
-      <hr />
-      <ul class="nav flex-column">
-        <li><a href="#" class="nav-link text-white">Home</a></li>
-        <li><a href="#" class="nav-link text-white">About us</a></li>
-      </ul>
-    </div>
-    <!-- sidebar -->
-    <div class="col content-grey">
-      <nav class="p-3 shadow text-end">
-        <span class="profile-font">User</span>
-        <img class="img-profile rounded-circle" src="#">
-      </nav>
-
-      <div class="g-0 m-5">
-        @yield('content')
+  <!-- header -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-4">
+    <div class="container">
+      <a class="navbar-brand" href="#">SpecsPicker</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link active" href="#">Home</a>
+          <a class="nav-link active" href="#">About</a>
+        </div>
       </div>
     </div>
+  </nav>
+
+  <header class="masthead bg-primary text-white text-center py-4">
+    <div class="container d-flex align-items-center flex-column">
+      <h2>@yield('subtitle', 'Get minimun hardware specs for a required software')</h2>
+    </div>
+  </header>
+  <!-- header -->
+
+  <div class="container my-4">
+    @yield('content')
   </div>
 
+  <hr>
+  
   <!-- footer -->
-  <div class="copyright py-4 text-center text-white relative-bottom">
+  <div class="copyright py-4 text-center text-black relative-bottom">
     <div class="container">
       <small>
         Copyright - <a class="text-reset fw-bold text-decoration-none" target="_blank"
           href="https://www.itiscuneo.edu.it/">
-          Federico Dutto, Thomas Pashollari
-        </a> - <b>ITIS M. Delpozzo</b>
+          Federico Dutto - Thomas Pashollari
+        </a>
+        <br>
+        <b>ITIS Mario Delpozzo Cuneo</b>
       </small>
     </div>
   </div>
   <!-- footer -->
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
   </script>
 </body>
-
 </html>

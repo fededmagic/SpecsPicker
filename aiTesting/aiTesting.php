@@ -4,13 +4,16 @@ require 'vendor/autoload.php';
 use GuzzleHttp\Client;
 
 $client = new Client();
+$client = new Client([
+    'verify' => false
+]); //disabilita il certificato SSL (non raccomandabile per l'ambiente di produzione)
 
 $response = $client->request('POST', 'https://chatgpt-42.p.rapidapi.com/conversationgpt4', [
     'body' => '{
     "messages": [
         {
             "role": "user",
-            "content": "hello"
+            "content": "give me a json with minumun and suggested hardware specifications of Counter Strike 2"
         }
     ],
     "system_prompt": "",

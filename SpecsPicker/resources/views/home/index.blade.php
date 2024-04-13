@@ -3,7 +3,8 @@
 @section("subtitle", $viewData["subtitle"])
 
 @section("content")
-<div class="sidebar-wrapper">
+<!--
+  <div class="sidebar-wrapper">
     <div class="sidebar-linklist-wrapper">
       <div class="link-list-wrapper">
         <ul class="link-list">
@@ -28,10 +29,28 @@
     </div>
   </div>
 
-<div class="h-100 d-flex align-items-center justify-content-center">
-    <div>
-      
+-->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <form method="POST" action = "{{ route("home.search") }}">
+                @csrf
+                <div class="form-group row">
+                    <label for="txtInput" class="col-lg-4 col-md-4 col-sm-12 col-form-label">Software name:</label>
+                    <div class="col-lg-6 col-md-8 col-sm-12">
+                        <input type="text" id="txtInput" name="txtInput" class="form-control">
+                    </div>
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                    <div class="form-group row mt-3">
+                      <div class="col-lg-8 col-md-8 col-sm-12 offset-md-4">
+                        <textarea id="txtArea" name="txtArea" class="form-control">{{ $viewData["result"] }}</textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
+</div>
 
 @endsection

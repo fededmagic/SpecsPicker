@@ -32,9 +32,23 @@
   </header>
   <!-- header -->
 
-  <div class="container my-4">
-    @yield('content')
+  <!-- Nel file layouts/app.blade.php -->
+
+  <div class="sidebar-linklist-wrapper linklist-secondary">
+      <div class="link-list-wrapper">
+          <ul class="link-list">
+              <li><a class="list-item" href="#"><span>Software1</span></a></li>
+              <li><a class="list-item active" href="#"><span>Software2</span></a></li>
+              <li><a class="list-item disabled" href="#"><span>Software3</span></a></li>
+          </ul>
+      </div>
   </div>
+</div>
+
+<div class="container">
+  @yield('content')
+</div>
+
 
   <hr>
   

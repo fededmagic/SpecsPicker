@@ -45,7 +45,47 @@
                     </div>
                     <div class="form-group row mt-3">
                       <div class="col-lg-8 col-md-8 col-sm-12 offset-md-4">
-                        <textarea id="txtArea" name="txtArea" class="form-control">{{ $viewData["result"] }}</textarea>
+
+                        <h4>Minimum specs</h4>
+                        <table class = "table table-bordered table-striped">
+                          
+                          <tr>
+                            <th>Component</th>
+                            <th>Value</th>
+                          </tr>
+                          
+                          @foreach($viewData["fields"] as $field)
+                          <tr>
+                            <td>{{ $field }}</td>
+                            <td>{{ $viewData["result"]["Minumun"][$field] }}</td>
+                          </tr>
+                          @endforeach
+
+                        </table>
+
+                      </div>
+
+                      <div class="form-group row mt-3">
+                        <div class="col-lg-8 col-md-8 col-sm-12 offset-md-4">
+  
+                          <h4>Suggested specs</h4>
+                          <table class = "table table-bordered table-striped">
+                            
+                            <tr>
+                              <th>Component</th>
+                              <th>Value</th>
+                            </tr>
+                            
+                            @foreach($viewData["fields"] as $field)
+                            <tr>
+                            </tr>
+                            @endforeach
+  
+                          </table>
+  
+                        </div>
+                      </div>
+
                     </div>
                 </div>
             </form>

@@ -19,6 +19,7 @@ class HomeController extends Controller
         $viewData['subtitle'] = 'Search the minimum hardware specs for a software!';
         $viewData['result'] = array();
         $viewData['fields'] = [];
+
         return view('home.index')->with("viewData", $viewData);
     }
 
@@ -28,8 +29,7 @@ class HomeController extends Controller
         $viewData['title'] = 'SpecsPicker';
         $viewData['subtitle'] = 'Search the minimum hardware specs for a software!';
         $viewData['result'] = array();
-        $viewData['fields'] = ["CPU", "Memory", "GPU", "Storage", "Operating system"];
-
+        $viewData['fields'] = ["CPU", "Memory", "GPU", "Operating system"];
         
         $request->validate([
             'txtInput' => "required | max:255"
@@ -38,6 +38,7 @@ class HomeController extends Controller
         $inputSoftware = $request->input('txtInput');
         
         $viewData["result"] = HomeController::apiRequest($inputSoftware);
+        //$viewData["result"] = $result["minimum"];
         return view('home.index')->with("viewData", $viewData);
     }
 
@@ -46,9 +47,9 @@ class HomeController extends Controller
         $client = new \GuzzleHttp\Client();
         $client = new Client([
             'verify' => false
-        ]); //disabilita il certificato SSL (non raccomandabile per l'ambiente di produzione)
+        ]); //disabilita il certificato SSL
 
-        $response = HomeController::makeFakeRequest($client, $inputSoftware);
+        $response = HomeController::makeRequest($client, $inputSoftware);
 
         return HomeController::parseBody($response);
     }
@@ -60,7 +61,7 @@ class HomeController extends Controller
             "messages": [
                 {
                     "role": "user",
-                    "content": "give me a json with only the fields Operating system, CPU, Memory, GPU, Storage with minumun and suggested hardware specifications of' .  $inputSoftware . ' formatted in the following way with only the following fields: {\"minumum\":{\"Operating system\":\"Operating system\", \"CPU\":\"CPU\", \"Memory\":\"Memory\", \"GPU\":\"GPU\", \"Storage\":\"Storage\"}, \"suggested\":{\"Operating system\":\"Operating system\", \"CPU\":\"CPU\", \"Memory\":\"Memory\", \"GPU\":\"GPU\", \"Storage\":\"Storage\"}}"
+                    "content": "give me a json with only the fields Operating system, CPU, Memory, GPU, Storage with minumun and suggested hardware specifications of' .  $inputSoftware . ' formatted in the following way with only the following fields: {\"minumum\":{\"Operating system\":\"Operating system\", \"CPU\":\"CPU\", \"Memory\":\"Memory\", \"GPU\":\"GPU\"}, \"suggested\":{\"Operating system\":\"Operating system\", \"CPU\":\"CPU\", \"Memory\":\"Memory\", \"GPU\":\"GPU\"}}"
                 }
             ],
             "system_prompt": "",
@@ -72,7 +73,7 @@ class HomeController extends Controller
         }',
             'headers' => [
                 'X-RapidAPI-Host' => 'chatgpt-42.p.rapidapi.com',
-                'X-RapidAPI-Key' => '4ac7ad12edmsh68893b14d13e403p13b433jsnb8329201aca7',
+                'X-RapidAPI-Key' => 'b08cfc8cdemsh4fa841c5710a053p1efa2bjsn04fd2f2ec701',
                 'content-type' => 'application/json',
             ],
         ])->getBody();
@@ -86,14 +87,18 @@ class HomeController extends Controller
 
     public static function parseBody($inputString) {
         
-        $inputString = stripslashes($inputString);
-        $inputString = str_replace('  ', '', $inputString);
-        
         $inputString = explode("```json", $inputString)[1];
+        
+        $inputString = explode("```", $inputString)[0];
 
         $inputString = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $inputString);
-        
-        return $inputString;
+        $inputString = str_replace('\n', '', $inputString);
+        $inputString = stripslashes($inputString);
+        $inputString = str_replace('  ', '', $inputString);
+        //$inputString = preg_replace('/(?<!\\\\)":\s*(?<!\\\\)"|\s*\\\\n\s*/', '', $inputString);
+
+
+        //return $inputString;
         $decodedJson = json_decode($inputString, true);
 
         return $decodedJson;

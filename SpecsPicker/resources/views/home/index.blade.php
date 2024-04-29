@@ -57,7 +57,7 @@
                           @foreach($viewData["fields"] as $field)
                           <tr>
                             <td>{{ $field }}</td>
-                            <td>{{ $viewData["result"]["Minumun"][$field] }}</td>
+                            <td>{{ $viewData["result"]["minimum"][$field] }}</td>
                           </tr>
                           @endforeach
 
@@ -78,6 +78,8 @@
                             
                             @foreach($viewData["fields"] as $field)
                             <tr>
+                                <td>{{ $field }}</td>
+                                <td>{{ $viewData["result"]["suggested"][$field] }}</td>
                             </tr>
                             @endforeach
   

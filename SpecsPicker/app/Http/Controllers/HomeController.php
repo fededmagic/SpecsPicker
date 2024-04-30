@@ -75,7 +75,7 @@ class HomeController extends Controller
         }',
             'headers' => [
                 'X-RapidAPI-Host' => 'chatgpt-42.p.rapidapi.com',
-                'X-RapidAPI-Key' => 'b08cfc8cdemsh4fa841c5710a053p1efa2bjsn04fd2f2ec701',
+                'X-RapidAPI-Key' => '0d18858bd4mshe5f832f5ef95fb7p1e90c0jsn11caba3c4d6d',
                 'content-type' => 'application/json',
             ],
         ])->getBody();

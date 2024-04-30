@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 //require 'vendor/autoload.php';
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use App\Models\Response;
 
 class HomeController extends Controller
 {
@@ -15,6 +16,7 @@ class HomeController extends Controller
         $viewData['subtitle'] = 'Search the minimum hardware specs for a software!';
         $viewData['result'] = array();
         $viewData['fields'] = [];
+        $viewData["responses"] = Response::all();
 
         return view('home.index')->with("viewData", $viewData);
     }
@@ -33,9 +35,15 @@ class HomeController extends Controller
 
         $inputSoftware = $request->input('txtInput');
         $result = HomeController::apiRequest($inputSoftware);
+        $result = HomeController::parseBody($result);
+
+        $response = new Response();
+        $response->setName($inputSoftware);
+        $response->setDesc($result);
+        $response->save();
+        $viewData["responses"] = Response::all();
         
-        $viewData["result"] = $result;
-        $fields = array_keys($result);
+        $viewData["result"] = json_decode($result, true);
         return view('home.index')->with("viewData", $viewData);
     }
 
@@ -46,9 +54,7 @@ class HomeController extends Controller
             'verify' => false
         ]); //disabilita il certificato SSL
 
-        $response = HomeController::makeRequest($client, $inputSoftware);
-
-        return HomeController::parseBody($response);
+        return HomeController::makeFakeRequest($client, $inputSoftware);
     }
 
     private static function makeRequest($client, $inputSoftware) {
@@ -91,8 +97,7 @@ class HomeController extends Controller
         $inputString = str_replace('\n', '', $inputString);
         $inputString = stripslashes($inputString);
         $inputString = str_replace('  ', '', $inputString);
-        $decodedJson = json_decode($inputString, true);
-
-        return $decodedJson;
+        
+        return $inputString;
     }
 }

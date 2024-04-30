@@ -74,35 +74,17 @@
 @section("sidebar")
 <nav id="sidebar">
   <ul class="list-unstyled components">
+
+    @foreach($viewData["responses"] as $response)
     <li class="mb-2">
       <a href="#" class="text-dark text-decoration-none d-flex align-items-center">
         <i class="bi bi-layers me-2"></i>
-        Home
+        <p>{{ $response->getName() }}</p>
       </a>
       <hr class="my-0" style="width: 50%;">
     </li>
-    <li class="mb-2">
-      <a href="#" class="text-dark text-decoration-none d-flex align-items-center">
-        <i class="bi bi-layers me-2"></i>
-        Portfolio
-      </a>
-      <hr class="my-0" style="width: 50%;">
-    </li>
-    <li class="mb-2">
-      <a href="#" class="text-dark text-decoration-none d-flex align-items-center">
-        <i class="bi bi-layers me-2"></i>
-        Contact
-      </a>
-      <hr class="my-0" style="width: 50%;">
-    </li>
-    <!-- Icona casuale in nero -->
-    <li class="mb-2">
-      <a href="#" class="text-dark text-decoration-none d-flex align-items-center">
-        <i class="bi bi-layers me-2"></i>
-        Random
-      </a>
-      <hr class="my-0" style="width: 50%;">
-    </li>
+    @endforeach
+  
   </ul>
 </nav>
 

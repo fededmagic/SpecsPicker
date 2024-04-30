@@ -8,10 +8,6 @@ use GuzzleHttp\Client;
 
 class HomeController extends Controller
 {
-    public static string $message = "give me a json formatted with the fields
-        Operating system, CPU, Memory, GPU, Storage with minumun and 
-        suggested hardware specifications of ";
-
     public function index()
     {
         $viewData = [];
@@ -40,7 +36,6 @@ class HomeController extends Controller
         
         $viewData["result"] = $result;
         $fields = array_keys($result);
-        //$viewData["result"] = $result["minimum"];
         return view('home.index')->with("viewData", $viewData);
     }
 
@@ -83,7 +78,6 @@ class HomeController extends Controller
 
     private static function makeFakeRequest($client, $inputSoftware) {
 
-        //return '{"result":"Here is the JSON format for The Last of Us hardware specifications:```json{    \"Operating System\": {        \"Minimum\": \"Windows 7 (64-bit)\",        \"Recommended\": \"Windows 10 (64-bit)\"    },    \"CPU\": {        \"Minimum\": \"Intel Core i3-560 @ 3.3GHz or AMD Phenom II X4 945\",        \"Recommended\": \"Intel Core i5-2500K @ 3.3GHz or AMD FX-8320 @ 3.5GHz\"    },    \"Memory\": {        \"Minimum\": \"4 GB RAM\",        \"Recommended\": \"8 GB RAM\"    },    \"GPU\": {        \"Minimum\": \"NVIDIA GeForce GTX 660 / AMD Radeon HD 7870 (2GB VRAM)\",        \"Recommended\": \"NVIDIA GeForce GTX 970 (4GB) / AMD Radeon R","status":true,"server_code":1}';
         return '{"result":"Here is the JSON you requested for Counter Strike 2 with minimum and suggested hardware specifications:```json{    \"minimum\": {        \"Operating system\": \"Windows 7 (32/64-bit)\",        \"CPU\": \"Intel Core Duo E6600 or AMD Phenom X3 8750 processor or better\",        \"Memory\": \"2 GB RAM\",        \"GPU\": \"Video card must be 256 MB or more and should be a DirectX 9-compatible with support for Pixel Shader 3.0\",        \"Storage\": \"15 GB available space\"    },    \"suggested\": {        \"Operating system\": \"Windows 10 (64-bit)\",        \"CPU\": \"Intel i5 3rd generation / AMD FX-8350 or equivalent\",        \"Memory\": \"8 GB RAM\",        \"GPU\": \"NVIDIA GeForce GTX 960 / ATI Radeon HD 7950 with 2GB VRAM or better\",        \"Storage\":"a"}}';
     }
 
@@ -97,10 +91,6 @@ class HomeController extends Controller
         $inputString = str_replace('\n', '', $inputString);
         $inputString = stripslashes($inputString);
         $inputString = str_replace('  ', '', $inputString);
-        //$inputString = preg_replace('/(?<!\\\\)":\s*(?<!\\\\)"|\s*\\\\n\s*/', '', $inputString);
-
-
-        //return $inputString;
         $decodedJson = json_decode($inputString, true);
 
         return $decodedJson;

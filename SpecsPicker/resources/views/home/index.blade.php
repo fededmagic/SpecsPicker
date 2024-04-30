@@ -56,12 +56,10 @@
                           
                           @if(array_key_exists("minimum", $viewData["result"]))
                             
-                            @foreach($viewData["fields"] as $field)
+                            @foreach(array_keys($viewData["result"]["minimum"]) as $field)
                             <tr>
-                              @if(array_key_exists($field, $viewData["result"]["minimum"]))
                                 <td>{{ $field }}</td>
                                 <td>{{ $viewData["result"]["minimum"][$field] }}</td>
-                              @endif
                             </tr>
                             @endforeach
 
@@ -84,12 +82,10 @@
                             
                             @if(array_key_exists("suggested", $viewData["result"]))
                               
-                              @foreach($viewData["fields"] as $field)
+                              @foreach(array_keys($viewData["result"]["suggested"]) as $field)
                               <tr>
-                                @if(array_key_exists($field, $viewData["result"]["suggested"]))
-                                  <td>{{ $field }}</td>
-                                  <td>{{ $viewData["result"]["suggested"][$field] }}</td>
-                                @endif
+                                <td>{{ $field }}</td>
+                                <td>{{ $viewData["result"]["suggested"][$field] }}</td>
                               </tr>
                               @endforeach
 

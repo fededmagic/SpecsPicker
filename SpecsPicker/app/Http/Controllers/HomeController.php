@@ -29,15 +29,17 @@ class HomeController extends Controller
         $viewData['title'] = 'SpecsPicker';
         $viewData['subtitle'] = 'Search the minimum hardware specs for a software!';
         $viewData['result'] = array();
-        $viewData['fields'] = ["CPU", "Memory", "GPU", "Operating system"];
+        $viewData['fields'] = array();
         
         $request->validate([
             'txtInput' => "required | max:255"
         ]);
 
         $inputSoftware = $request->input('txtInput');
+        $result = HomeController::apiRequest($inputSoftware);
         
-        $viewData["result"] = HomeController::apiRequest($inputSoftware);
+        $viewData["result"] = $result;
+        $fields = array_keys($result);
         //$viewData["result"] = $result["minimum"];
         return view('home.index')->with("viewData", $viewData);
     }

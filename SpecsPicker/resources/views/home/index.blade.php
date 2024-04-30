@@ -48,18 +48,24 @@
 
                         <h4>Minimum specs</h4>
                         <table class = "table table-bordered table-striped">
-                          
+
                           <tr>
                             <th>Component</th>
                             <th>Value</th>
                           </tr>
                           
-                          @foreach($viewData["fields"] as $field)
-                          <tr>
-                            <td>{{ $field }}</td>
-                            <td>{{ $viewData["result"]["minimum"][$field] }}</td>
-                          </tr>
-                          @endforeach
+                          @if(array_key_exists("minimum", $viewData["result"]))
+                            
+                            @foreach($viewData["fields"] as $field)
+                            <tr>
+                              @if(array_key_exists($field, $viewData["result"]["minimum"]))
+                                <td>{{ $field }}</td>
+                                <td>{{ $viewData["result"]["minimum"][$field] }}</td>
+                              @endif
+                            </tr>
+                            @endforeach
+
+                          @endif
 
                         </table>
 
@@ -70,18 +76,24 @@
   
                           <h4>Suggested specs</h4>
                           <table class = "table table-bordered table-striped">
-                            
+
                             <tr>
                               <th>Component</th>
                               <th>Value</th>
                             </tr>
                             
-                            @foreach($viewData["fields"] as $field)
-                            <tr>
-                                <td>{{ $field }}</td>
-                                <td>{{ $viewData["result"]["suggested"][$field] }}</td>
-                            </tr>
-                            @endforeach
+                            @if(array_key_exists("suggested", $viewData["result"]))
+                              
+                              @foreach($viewData["fields"] as $field)
+                              <tr>
+                                @if(array_key_exists($field, $viewData["result"]["suggested"]))
+                                  <td>{{ $field }}</td>
+                                  <td>{{ $viewData["result"]["suggested"][$field] }}</td>
+                                @endif
+                              </tr>
+                              @endforeach
+
+                            @endif
   
                           </table>
   

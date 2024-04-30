@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
   <link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+
   <title>@yield('title', 'Online Store')</title>
 </head>
 <body>
@@ -32,23 +34,18 @@
   </header>
   <!-- header -->
 
-  <!-- Nel file layouts/app.blade.php -->
-
-  <div class="sidebar-linklist-wrapper linklist-secondary">
-      <div class="link-list-wrapper">
-          <ul class="link-list">
-              <li><a class="list-item" href="#"><span>Software1</span></a></li>
-              <li><a class="list-item active" href="#"><span>Software2</span></a></li>
-              <li><a class="list-item disabled" href="#"><span>Software3</span></a></li>
-          </ul>
+  <div class="container my-4">
+    <div class="row">
+      <div class="col-md-3">
+        <!-- Sidebar -->
+        @yield('sidebar')
       </div>
+      <div class="col-md-8">
+        <!-- Content -->
+        @yield('content')
+      </div>
+    </div>
   </div>
-</div>
-
-<div class="container">
-  @yield('content')
-</div>
-
 
   <hr>
   

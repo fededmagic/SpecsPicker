@@ -11,7 +11,7 @@ class Response extends Model{
 
     public function setId($id) { $this->attributes["id"] = $id; }
 
-    public function getName() { $this->attributes["name"]; }
+    public function getName() { return $this->attributes["name"]; }
 
     public function setName($name) { $this->attributes["name"] = $name; }
 

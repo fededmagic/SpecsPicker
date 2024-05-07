@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\http\controllers\HomeController@index')->name('home.index');
 Route::post('/', 'App\http\controllers\HomeController@search')->name('home.search');
+Route::get('/{id}', 'App\http\controllers\HomeController@populate')->name('home.populate');

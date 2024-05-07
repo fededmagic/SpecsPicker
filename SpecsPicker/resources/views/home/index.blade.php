@@ -11,7 +11,7 @@
                 <div class="form-group row">
                     <label for="txtInput" class="col-lg-4 col-md-4 col-sm-12 col-form-label">Software name:</label>
                     <div class="col-lg-6 col-md-8 col-sm-12">
-                        <input type="text" id="txtInput" name="txtInput" class="form-control">
+                        <input type="text" id="txtInput" name="txtInput" class="form-control" value = "{{ $viewData["softwareName"] }}">
                     </div>
                     <div class="col-lg-2 col-md-12 col-sm-12">
                         <button type="submit" class="btn btn-primary">Search</button>
@@ -73,15 +73,20 @@
 
 @section("sidebar")
 <nav id="sidebar">
+
+  <a href = "{{ route("home.index") }}">
+    <button class = "bg btn-primary rounded">NEW</button>
+  </a><br><br>
+
   <ul class="list-unstyled components">
 
     @foreach($viewData["responses"] as $response)
     <li class="mb-2">
-      <a href="#" class="text-dark text-decoration-none d-flex align-items-center">
+      <a href="{{route("home.populate", $response->getId())}}" class="text-dark text-decoration-none d-flex align-items-center">
         <i class="bi bi-layers me-2"></i>
         <p>{{ $response->getName() }}</p>
       </a>
-      <hr class="my-0" style="width: 50%;">
+      <hr class="my-0" style="width: 60%;">
     </li>
     @endforeach
   

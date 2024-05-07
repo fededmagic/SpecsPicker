@@ -14,8 +14,8 @@ class HomeController extends Controller
         $viewData = [];
         $viewData['title'] = 'SpecsPicker';
         $viewData['subtitle'] = 'Search the minimum hardware specs for a software!';
+        $viewData['softwareName'] = '';
         $viewData['result'] = array();
-        $viewData['fields'] = [];
         $viewData["responses"] = Response::all();
 
         return view('home.index')->with("viewData", $viewData);
@@ -26,8 +26,7 @@ class HomeController extends Controller
         $viewData = [];
         $viewData['title'] = 'SpecsPicker';
         $viewData['subtitle'] = 'Search the minimum hardware specs for a software!';
-        $viewData['result'] = array();
-        $viewData['fields'] = array();
+        $viewData['result'] = array();      
         
         $request->validate([
             'txtInput' => "required | max:255"
@@ -35,15 +34,42 @@ class HomeController extends Controller
 
         $inputSoftware = $request->input('txtInput');
         $result = HomeController::apiRequest($inputSoftware);
-        $result = HomeController::parseBody($result);
 
-        $response = new Response();
-        $response->setName($inputSoftware);
-        $response->setDesc($result);
-        $response->save();
-        $viewData["responses"] = Response::all();
+        if($result != null) {
+
+            $result = HomeController::parseBody($result);
+
+            $response = new Response();
+            $response->setName($inputSoftware);
+            $response->setDesc($result);
+            $response->save();
+            
+            if($decodedJson = json_decode($result, true)) 
+                $viewData["result"] = $decodedJson;
+            else $viewData["result"] = HomeController::errorArray();
+        }
+          
+        $viewData["responses"] = Response::all(); //aggiungere where
+        $viewData['softwareName'] = $inputSoftware;
+
+        return view('home.index')->with("viewData", $viewData);
+    }
+
+    public function populate($id) {
+
+        $response = Response::findOrFail($id);
+
+        $viewData = [];
+        $viewData['title'] = 'SpecsPicker';
+        $viewData['subtitle'] = 'Search the minimum hardware specs for a software!';
+        $viewData['result'] = array(); 
+        $viewData['softwareName'] = $response->getName();
+        $viewData['responses'] = Response::all(); //aggiungere where
+
+        if($decodedJson = json_decode($response->getDesc(), true)) 
+            $viewData["result"] = $decodedJson;
+        else $viewData["result"] = HomeController::errorArray();
         
-        $viewData["result"] = json_decode($result, true);
         return view('home.index')->with("viewData", $viewData);
     }
 
@@ -54,7 +80,7 @@ class HomeController extends Controller
             'verify' => false
         ]); //disabilita il certificato SSL
 
-        return HomeController::makeFakeRequest($client, $inputSoftware);
+        return HomeController::makeRequest($client, $inputSoftware);
     }
 
     private static function makeRequest($client, $inputSoftware) {
@@ -85,6 +111,17 @@ class HomeController extends Controller
     private static function makeFakeRequest($client, $inputSoftware) {
 
         return '{"result":"Here is the JSON you requested for Counter Strike 2 with minimum and suggested hardware specifications:```json{    \"minimum\": {        \"Operating system\": \"Windows 7 (32/64-bit)\",        \"CPU\": \"Intel Core Duo E6600 or AMD Phenom X3 8750 processor or better\",        \"Memory\": \"2 GB RAM\",        \"GPU\": \"Video card must be 256 MB or more and should be a DirectX 9-compatible with support for Pixel Shader 3.0\",        \"Storage\": \"15 GB available space\"    },    \"suggested\": {        \"Operating system\": \"Windows 10 (64-bit)\",        \"CPU\": \"Intel i5 3rd generation / AMD FX-8350 or equivalent\",        \"Memory\": \"8 GB RAM\",        \"GPU\": \"NVIDIA GeForce GTX 960 / ATI Radeon HD 7950 with 2GB VRAM or better\",        \"Storage\":"a"}}';
+    }
+
+    private static function errorArray() {
+        return array(
+            "minimum" => array(
+                "ERROR" => "Invalid response given",
+            ),
+            "suggested" => array(
+                "ERROR" => "Invalid response given",
+            ),
+        );
     }
 
     public static function parseBody($inputString) {

@@ -7,7 +7,7 @@
   <link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 
-  <title>@yield('title', 'Online Store')</title>
+  <title>@yield('title', 'SpecsPicker')</title>
 </head>
 <body>
   <!-- header -->
@@ -20,8 +20,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
-          <a class="nav-link active" href="#">Home</a>
-          <a class="nav-link active" href="#">About</a>
+          <a class="nav-link active" href="{{route('home.index')}}">Home</a>
+
+          @guest
+          <a class="nav-link active" href="{{route('login')}}">Login</a>
+          <a class="nav-link active" href="{{route('register')}}">Register</a>
+          @else
+          <form id = "logout" method = "POST" action = "{{ route("logout") }}">
+            <a class="nav-link active" onclick = "document.getElementById('logout').submit()" role = "button">Logout</a>
+            @csrf
+          </form>
+          @endguest
+
         </div>
       </div>
     </div>

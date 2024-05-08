@@ -12,7 +12,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+Route::middleware("auth")->group(function() {
 
-Route::get('/', 'App\http\controllers\HomeController@index')->name('home.index');
-Route::post('/', 'App\http\controllers\HomeController@search')->name('home.search');
-Route::get('/{id}', 'App\http\controllers\HomeController@populate')->name('home.populate');
+    Route::get('/', 'App\http\controllers\HomeController@index')->name('home.index');
+    Route::post('/', 'App\http\controllers\HomeController@search')->name('home.search');
+    Route::get('/{id}', 'App\http\controllers\HomeController@populate')->name('home.populate');
+});
+Auth::routes();
+
+//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

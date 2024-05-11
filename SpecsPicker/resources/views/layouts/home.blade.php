@@ -45,7 +45,16 @@
   <!-- header -->
 
   <div class="container my-4">
-    @yield('content') 
+    <div class="row">
+      <div class="col-md-3">
+        <!-- Sidebar -->
+        @yield('sidebar')
+      </div>
+      <div class="col-md-8">
+        <!-- Content -->
+        @yield('content')
+      </div>
+    </div>
   </div>
 
   <hr>

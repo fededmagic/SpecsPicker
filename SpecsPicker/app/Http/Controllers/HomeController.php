@@ -82,7 +82,7 @@ class HomeController extends Controller
             'verify' => false
         ]); //disabilita il certificato SSL
 
-        return HomeController::makeFakeRequest($client, $inputSoftware);
+        return HomeController::makeRequest($client, $inputSoftware);
     }
 
     private static function makeRequest($client, $inputSoftware) {

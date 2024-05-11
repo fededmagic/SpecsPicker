@@ -13,11 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Auth::routes();
+
+Route::get('/', 'App\http\controllers\GetStartedController@index')->name('getstarted.index');
+
 Route::middleware("auth")->group(function() {
 
-    Route::get('/', 'App\http\controllers\HomeController@index')->name('home.index');
-    Route::post('/', 'App\http\controllers\HomeController@search')->name('home.search');
-    Route::get('/{id}', 'App\http\controllers\HomeController@populate')->name('home.populate');
+    Route::get('/home', 'App\http\controllers\HomeController@index')->name('home.index');
+    Route::post('/home', 'App\http\controllers\HomeController@search')->name('home.search');
+    Route::get('/home/{id}', 'App\http\controllers\HomeController@populate')->name('home.populate');
 });
 Auth::routes();
 

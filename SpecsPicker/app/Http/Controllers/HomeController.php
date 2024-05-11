@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Models\Response;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -16,7 +17,7 @@ class HomeController extends Controller
         $viewData['subtitle'] = 'Search the minimum hardware specs for a software!';
         $viewData['softwareName'] = '';
         $viewData['result'] = array();
-        $viewData["responses"] = Response::all();
+        $viewData["responses"] = Response::where("user_id", Auth::user()->getId())->get();
 
         return view('home.index')->with("viewData", $viewData);
     }
@@ -42,6 +43,7 @@ class HomeController extends Controller
             $response = new Response();
             $response->setName($inputSoftware);
             $response->setDesc($result);
+            $response->setUserId(Auth::user()->getId());
             $response->save();
             
             if($decodedJson = json_decode($result, true)) 
@@ -49,7 +51,7 @@ class HomeController extends Controller
             else $viewData["result"] = HomeController::errorArray();
         }
           
-        $viewData["responses"] = Response::all(); //aggiungere where
+        $viewData["responses"] = Response::where("user_id", Auth::user()->getId())->get(); 
         $viewData['softwareName'] = $inputSoftware;
 
         return view('home.index')->with("viewData", $viewData);
@@ -64,7 +66,7 @@ class HomeController extends Controller
         $viewData['subtitle'] = 'Search the minimum hardware specs for a software!';
         $viewData['result'] = array(); 
         $viewData['softwareName'] = $response->getName();
-        $viewData['responses'] = Response::all(); //aggiungere where
+        $viewData['responses'] = Response::where("user_id", Auth::user()->getId())->get();
 
         if($decodedJson = json_decode($response->getDesc(), true)) 
             $viewData["result"] = $decodedJson;
@@ -80,7 +82,7 @@ class HomeController extends Controller
             'verify' => false
         ]); //disabilita il certificato SSL
 
-        return HomeController::makeRequest($client, $inputSoftware);
+        return HomeController::makeFakeRequest($client, $inputSoftware);
     }
 
     private static function makeRequest($client, $inputSoftware) {

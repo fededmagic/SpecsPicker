@@ -18,6 +18,10 @@ class Response extends Model{
     public function getDesc() { return $this->attributes["desc"]; }
 
     public function setDesc($desc) { $this->attributes["desc"] = $desc; }
+    
+    public function getUser(): User { return $this->user; }
+    
+    public function setUserId($user_id) { $this->attributes['user_id'] = $user_id; }
 
     public function getCreateAt() { return $this->attributes["createAt"]; }
 
@@ -26,6 +30,9 @@ class Response extends Model{
     public function setCreateAt($createAt) { $this->attributes["createAt"] = $createAt; }
 
     public function setUpdateAt($updateAt) { $this->attributes["updateAt"] = $updateAt; }
+
+
+    public function user(): BelongsTo { return $this->belongsTo(User::class); }
 }
 
 

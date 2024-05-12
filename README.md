@@ -42,7 +42,7 @@ Replace <repository_url> with the URL of the Git repository where the Laravel pr
       ```
 * ***Start the Development Server:***
 
-  *Once everything is set up, you can start the Laravel development server:
+  * Once everything is set up, you can start the Laravel development server:
       ```console
        php artisan serve
       ```

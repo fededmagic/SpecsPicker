@@ -9,3 +9,6 @@ Federico Dutto - Pashollari Thomas 5°A INF
     ```console
     git clone <repository_url>
     ```
+Replace <repository_url> with the URL of the Git repository where the Laravel project is hosted.
+
+* ***Install Dependencies***

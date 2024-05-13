@@ -1,5 +1,7 @@
 # Get hardware specifications for a software
 
+Federico Dutto - Thomas Pashollari 5°A INF 
+
 ## Overview
 
 Once you log in, you can search the software and it shows the minimum and the suggested hardware specifications for it. The previous search will be saved in a sidebar menu.
@@ -7,8 +9,6 @@ Once you log in, you can search the software and it shows the minimum and the su
 ![Homepage](./docs/home.png)
 
 ## How to download the Laravel project from Git
-
-Federico Dutto - Pashollari Thomas 5°A INF 
 
 * ***Clone the project from Git:*** 
    

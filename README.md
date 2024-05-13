@@ -4,7 +4,7 @@
 
 Once you log in, you can search the software and it shows the minimum and the suggested hardware specifications for it. The previous search will be saved in a sidebar menu.
 
-![Homepage](./doc/home.png)
+![Homepage](./docs/home.png)
 
 ## How to download the Laravel project from Git
 
